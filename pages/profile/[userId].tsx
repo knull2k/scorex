@@ -20,7 +20,7 @@ const Profile = ({ data }: InterfaceProps) => {
   const { user, userVideos, userLikedVideos } = data;
 
   /* FOR SHOWING LINE STYLE WHICH PART USER CLICK */
-  const [showUserVideos, setShowUserVideos] = useState(true);
+  const [showUserVideos, setShowUserVideos] = useState<Boolean>(true);
   // if user click video than apply this videos func
   const videos = showUserVideos ? "border-b-2 border-black" : "text-gray-400";
   // else apply likes funct below
@@ -30,12 +30,16 @@ const Profile = ({ data }: InterfaceProps) => {
   /* VIDEOS/LIKED SECTION FUNC */
   const [videosList, setVideosList] = useState<Video[]>([]);
   useEffect(() => {
-    if (showUserVideos) {
-      // connected to line 11 & getServerSideProps
-      setVideosList(userVideos);
-    } else {
-      setVideosList(userLikedVideos);
-    }
+    const fetchVideos = async () => {
+      if (showUserVideos) {
+        // connected to line 11 & getServerSideProps
+        setVideosList(userVideos);
+      } else {
+        setVideosList(userLikedVideos);
+      }
+    };
+
+    fetchVideos();
   }, [showUserVideos, userLikedVideos, userVideos]);
 
   /* VIDEOS/LIKED SECTION FUNC  */
@@ -57,10 +61,10 @@ const Profile = ({ data }: InterfaceProps) => {
 
         <div className="flex flex-col justify-center">
           <p className="flex md:text-2xl gap-1 items-center justify-center text-md font-bold text-primary lowercase">
-            {user.userName.replaceAll(" ", "")}
-            <GoVerified className="text-green-600" />
+            <span>{user.userName.replace(/\s+/g, "")} </span>
+            <GoVerified className="text-green-600 md:text-xl text-md" />
           </p>
-          <p className="capitalize md:text-xl text-gray-400 text-xs">
+          <p className="capitalize md:text-xl font-medium text-gray-600 text-sm">
             {user.userName}
           </p>
         </div>
