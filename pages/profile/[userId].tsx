@@ -72,7 +72,7 @@ const Profile = ({ data }: InterfaceProps) => {
       {/* WRAPPER */}
 
       <div>
-        <div className="flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full ">
+        <div className="flex gap-16 lg:gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full ">
           <p
             className={`text-xl font-semibold cursor-pointer mt-2 ${videos}`}
             onClick={() => setShowUserVideos(true)}
